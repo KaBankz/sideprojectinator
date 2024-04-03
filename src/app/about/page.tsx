@@ -6,7 +6,7 @@ export default function About() {
           <h2 className="max-w-screen-xl text-6xl font-bold">
             SideProjectInator? What is that?
           </h2>
-          <p className="text-4xl">
+          <p className="text-4xl text-foreground/80">
             Well, it&apos;s a project that I&apos;m working on to help you
             generate ideas for your next side project! Utilizing the power of
             A.I, you can get a random idea to help you get started on your next

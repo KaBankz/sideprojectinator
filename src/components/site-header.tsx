@@ -79,7 +79,7 @@ async function ProfileMenu() {
   if (!session) {
     return (
       <Link
-        className={buttonVariants({ variant: "outline" })}
+        className={cn(buttonVariants({ variant: "outline" }), "ml-4")}
         href="/api/auth/signin"
       >
         Log In
