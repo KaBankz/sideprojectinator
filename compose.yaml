@@ -1,0 +1,25 @@
+services:
+  app:
+    container_name: sideprojectinator
+    image: sideprojectinator
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    working_dir: /app
+    ports:
+      - 3000:3000
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - NEXTAUTH_SECRET=${NEXTAUTH_SECRET}
+      - NEXTAUTH_URL=${NEXTAUTH_URL}
+      - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
+      - DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
+
+  llm:
+    container_name: ollama
+    image: ollama/ollama:0.1.30
+    volumes:
+      - ./.ollama:/root/.ollama
+    ports:
+      - 11434:11434
