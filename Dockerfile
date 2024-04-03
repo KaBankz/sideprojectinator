@@ -29,8 +29,7 @@ RUN \
 
 ##### RUNNER
 
-# FROM gcr.io/distroless/nodejs20-debian12 AS runner
-FROM node:20 AS runner
+FROM gcr.io/distroless/nodejs20-debian12 AS runner
 
 WORKDIR /app
 
