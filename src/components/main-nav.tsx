@@ -20,7 +20,7 @@ export function MainNav() {
         </span>
       </Link>
       <nav className="flex items-center gap-4 text-sm lg:gap-6">
-        <NavItem href="/ideas">Ideas</NavItem>
+        <NavItem href="/ideas">My Ideas</NavItem>
         <NavItem href="/about">About</NavItem>
 
         {/* <Link

@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { CreatePost } from "~/app/_components/create-post";
-import { Button } from "~/components/ui/button";
+import { buttonVariants } from "~/components/ui/button";
+import { cn } from "~/lib/utils";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
@@ -20,9 +22,15 @@ export default async function Home() {
 
         <div className="group relative inline-flex">
           <div className="absolute -inset-2 animate-pulse rounded-xl bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] bg-top blur-xl transition-all duration-1000 group-hover:-inset-3"></div>
-          <Button className="relative rounded-xl p-8 text-lg font-bold transition-all duration-200 group-hover:scale-105">
+          <Link
+            className={cn(
+              buttonVariants({ variant: "default" }),
+              "relative rounded-xl p-8 text-lg font-bold transition-all duration-200 group-hover:scale-105",
+            )}
+            href="/generate"
+          >
             I&apos;m Feeling Lucky!
-          </Button>
+          </Link>
         </div>
 
         <div className="mt-48 flex flex-col items-center justify-center gap-2">
