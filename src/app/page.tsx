@@ -1,16 +1,14 @@
-import Link from "next/link";
-
 import { CreatePost } from "~/app/_components/create-post";
+import { Button } from "~/components/ui/button";
 import { getServerAuthSession } from "~/server/auth";
 import { api } from "~/trpc/server";
 
 export default async function Home() {
-  const hello = await api.post.hello({ text: "from tRPC" });
-  const session = await getServerAuthSession();
+  // const hello = await api.post.hello({ text: "from tRPC" });
 
   return (
-    <main className="flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-center">
-      <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
+    <main className="flex min-h-[calc(100vh-3.5rem)] flex-col items-center justify-start">
+      <div className="container mt-20 flex flex-col items-center justify-center gap-12 px-4 py-16">
         <div className="flex flex-col items-center justify-center">
           <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
             SideProject<span className="text-red-600">Inator</span>
@@ -22,30 +20,25 @@ export default async function Home() {
 
         <div className="group relative inline-flex">
           <div className="absolute -inset-2 animate-pulse rounded-xl bg-gradient-to-r from-[#44BCFF] via-[#FF44EC] to-[#FF675E] bg-top blur-xl transition-all duration-1000 group-hover:-inset-3"></div>
-          <button className="relative inline-flex items-center justify-center rounded-xl bg-gray-900 px-8 py-4 text-lg font-bold text-white transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 group-hover:scale-105">
+          <Button className="relative rounded-xl p-8 text-lg font-bold transition-all duration-200 group-hover:scale-105">
             I&apos;m Feeling Lucky!
-          </button>
+          </Button>
         </div>
 
-        <div className="flex flex-col items-center gap-2">
+        <div className="mt-48 flex flex-col items-center justify-center gap-2">
+          <p className="text-center text-2xl font-light">
+            Utilize the power of A.I to generate ideas for your next side
+            project!
+          </p>
+        </div>
+
+        {/* <div className="flex flex-col items-center gap-2">
           <p className="text-2xl">
             {hello ? hello.greeting : "Loading tRPC query..."}
           </p>
+        </div> */}
 
-          <div className="flex flex-col items-center justify-center gap-4">
-            <p className="text-center text-2xl">
-              {session && <span>Logged in as {session.user?.name}</span>}
-            </p>
-            <Link
-              href={session ? "/api/auth/signout" : "/api/auth/signin"}
-              className="rounded-full bg-white/10 px-10 py-3 font-semibold no-underline transition hover:bg-white/20"
-            >
-              {session ? "Sign out" : "Sign in"}
-            </Link>
-          </div>
-        </div>
-
-        <CrudShowcase />
+        {/* <CrudShowcase /> */}
       </div>
     </main>
   );

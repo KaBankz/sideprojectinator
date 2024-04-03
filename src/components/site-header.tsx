@@ -19,8 +19,6 @@ import { cn } from "~/lib/utils";
 import { getServerAuthSession } from "~/server/auth";
 
 export async function SiteHeader() {
-  const session = await getServerAuthSession();
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 max-w-screen-xl items-center">
@@ -28,7 +26,7 @@ export async function SiteHeader() {
         {/* <MobileNav /> */}
         <div className="flex flex-1 items-center justify-between space-x-2 md:justify-end">
           <div className="w-full flex-1 md:w-auto md:flex-none"></div>
-          <nav className="flex items-center">
+          <nav className="flex items-center text-foreground">
             <Link
               href={siteConfig.links.github}
               target="_blank"
@@ -46,6 +44,7 @@ export async function SiteHeader() {
                 <span className="sr-only">GitHub</span>
               </div>
             </Link>
+
             <Link
               href={siteConfig.links.twitter}
               target="_blank"
@@ -63,45 +62,56 @@ export async function SiteHeader() {
                 <span className="sr-only">Twitter</span>
               </div>
             </Link>
+
             <ModeToggle />
 
-            {session ? (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild className="ml-4">
-                  <Avatar className="h-8 w-8 cursor-pointer outline outline-2 outline-slate-600">
-                    <AvatarImage src={session.user?.image ?? ""} />
-                    <AvatarFallback>{session.user?.name}</AvatarFallback>
-                  </Avatar>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-56">
-                  <DropdownMenuItem asChild>
-                    <Link href="/profile">
-                      <User className="mr-2 h-4 w-4" />
-                      <span>Profile</span>
-                      <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
-                    </Link>
-                  </DropdownMenuItem>
-
-                  <DropdownMenuItem asChild>
-                    <Link href="/api/auth/signout">
-                      <LogOut className="mr-2 h-4 w-4" />
-                      <span>Log out</span>
-                      <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-            ) : (
-              <Link
-                className={buttonVariants({ variant: "outline" })}
-                href="/api/auth/signin"
-              >
-                Log In
-              </Link>
-            )}
+            <ProfileMenu />
           </nav>
         </div>
       </div>
     </header>
+  );
+}
+
+async function ProfileMenu() {
+  const session = await getServerAuthSession();
+
+  if (!session) {
+    return (
+      <Link
+        className={buttonVariants({ variant: "outline" })}
+        href="/api/auth/signin"
+      >
+        Log In
+      </Link>
+    );
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild className="ml-4">
+        <Avatar className="h-8 w-8 cursor-pointer outline outline-2 outline-slate-600">
+          <AvatarImage src={session.user?.image ?? ""} />
+          <AvatarFallback>{session.user?.name}</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-56">
+        <DropdownMenuItem asChild>
+          <Link href="/profile">
+            <User className="mr-2 h-4 w-4" />
+            <span>Profile</span>
+            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          </Link>
+        </DropdownMenuItem>
+
+        <DropdownMenuItem asChild>
+          <Link href="/api/auth/signout">
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Log out</span>
+            <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
