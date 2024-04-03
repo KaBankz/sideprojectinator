@@ -3,6 +3,8 @@
     "clsx",
     "lucide",
     "nextjs",
+    "ollama",
+    "openai",
     "signin",
     "superjson",
     "TRPC",
