@@ -12,7 +12,7 @@ const openai = new OpenAI({
 });
 
 // Vercel
-let _runtime: string | undefined;
+let _runtime = "nodejs";
 if (process.env.VERCEL) {
   // IMPORTANT! Set the runtime to edge
   _runtime = "edge";
