@@ -15,10 +15,14 @@ services:
       - NEXTAUTH_URL=${NEXTAUTH_URL}
       - DISCORD_CLIENT_ID=${DISCORD_CLIENT_ID}
       - DISCORD_CLIENT_SECRET=${DISCORD_CLIENT_SECRET}
+      - LLM_HOST_URL=http://llm:11434
+      - LLM_HOST_API_KEY=
+      - LLM=llama2
 
   llm:
     container_name: ollama
     image: ollama/ollama:0.1.30
+    command: "ollama pull llama2"
     volumes:
       - ./.ollama:/root/.ollama
     ports:
