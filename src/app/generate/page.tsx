@@ -18,25 +18,12 @@ export default function Chat() {
         <h1>A.I Chat</h1>
       </div>
 
-      <div className="overflow-scroll px-2">
-        {messages.map((m) => (
-          <div key={m.id} className="my-2 whitespace-pre-wrap">
-            {m.role === "user" ? (
-              <div className="flex justify-end">
-                <div className="w-fit rounded-xl rounded-br-none bg-blue-600 p-2 text-right text-white">
-                  <span>{m.content}</span>
-                </div>
-              </div>
-            ) : (
-              <div className="flex justify-start">
-                <div className="w-fit rounded-xl rounded-bl-none bg-gray-500 p-2 text-left text-white">
-                  <span>{m.content}</span>
-                </div>
-              </div>
-            )}
-          </div>
-        ))}
-
+      {/*
+        In order to have the scroll snap the the bottom we are using flex to reverse the order of the elements
+        because of this we have to reverse the messages array so when flex reverses it, it will be back to the original
+        we also had to move the loading and error elements above the messages
+       */}
+      <div className="flex flex-col-reverse overflow-scroll px-2 pb-20">
         {isLoading && (
           <div className="my-2 flex justify-start">
             <div className="text-left">
@@ -56,6 +43,27 @@ export default function Chat() {
             </div>
           </div>
         )}
+
+        {messages
+          .slice(0) // Create a copy of the array since original is immutable
+          .reverse()
+          .map((m) => (
+            <div key={m.id} className="my-2 whitespace-pre-wrap">
+              {m.role === "user" ? (
+                <div className="flex justify-end">
+                  <div className="w-fit rounded-xl rounded-br-none bg-blue-600 p-2 text-right text-white">
+                    <span>{m.content}</span>
+                  </div>
+                </div>
+              ) : (
+                <div className="flex justify-start">
+                  <div className="w-fit rounded-xl rounded-bl-none bg-gray-500 p-2 text-left text-white">
+                    <span>{m.content}</span>
+                  </div>
+                </div>
+              )}
+            </div>
+          ))}
       </div>
 
       <form onSubmit={handleSubmit}>
