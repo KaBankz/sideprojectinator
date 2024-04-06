@@ -5,9 +5,7 @@ import { Avatar, AvatarFallback } from "~/components/ui/avatar";
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit, isLoading, error } =
-    useChat({
-      api: "/api/ollama",
-    });
+    useChat();
 
   return (
     <div className="mx-auto flex h-screen max-h-[calc(100vh-3.5rem)] w-full max-w-md flex-col bg-gray-200">
